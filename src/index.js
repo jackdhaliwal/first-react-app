@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
+/*making square component interactive. when you click square, you get alert. (using arrow notation)*/ 
 class Square extends React.Component {
   render() {
     return (
-      <button className="square"> 
+      <button className="square" onClick={() => alert('click')}>  
         {this.props.value}      
       </button>
-    );
+    ); 
   }
 }
 
