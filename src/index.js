@@ -3,26 +3,35 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Square extends React.Component {
-  /*adding constructor for state, so current value of square will be stored in state, and we can change when square is clicked*/ 
-  constructor(props) {
-    super(props); //must call super() because constructor of a subclass
-    this.state= {
-      value: null,
-    };
-  }
-  /*making square component interactive. when you click square, you get alert. (using arrow notation)*/ 
   render() {
     return (
-      <button className="square" onClick={() => this.setState({value: 'X'})}>  
-        {this.state.value}      
+      <button className="square" onClick={() => this.props.onClick()}>
+        {this.props.value}
       </button>
-    ); 
+    );
   }
 }
 
 class Board extends React.Component {
+  constructor(props)  {
+    super(props);
+      this.state= {
+        squares: Array(9).fill(null),
+      };
+    }
+
+    handleClick(i) {
+      const squares = this.state.squares.slice();
+      squares[i] = 'X';
+      this.setState({squares: squares});
+    }
+
   renderSquare(i) {
-    return <Square value={i} />;    //passing data through props.. (populating squares with values)
+      return (
+        <Square value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)} 
+      />
+    );    
   }
 
   render() {
